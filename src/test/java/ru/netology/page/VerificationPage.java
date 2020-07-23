@@ -13,8 +13,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class VerificationPage {
-    //    private SelenideElement codeField = $("[data-test-id=code] input");
-//    private SelenideElement verifyButton = $("[data-test-id=action-verify]");
     private static RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
             .setPort(9999)

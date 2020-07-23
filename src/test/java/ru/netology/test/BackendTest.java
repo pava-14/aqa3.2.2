@@ -11,16 +11,21 @@ import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class BackendTest {
+    private final String from = "5559 0000 0000 0002";
+    private final String to = "5559 0000 0000 0008";
+    private final int amount = 5000;
 
     @AfterAll
     public static void PostConditions() throws SQLException {
         DbHelper.ClearAuthCodesTable();
     }
 
-    @Test
-    public void openDashboardWithValidAuthInfo() {
+    private DashboardPage openDashboard() {
         val loginPage = new LoginPage();
         val authInfo = DbHelper.getValidAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
@@ -30,7 +35,26 @@ public class BackendTest {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        DashboardPage page = verificationPage.validVerify(verificationInfo);
+        return verificationPage.validVerify(verificationInfo);
+    }
+
+    @Test
+    public void shouldLoginWithValidAuthInfo() {
+        DashboardPage dashboardPage = openDashboard();
+        assertThat(dashboardPage, is(notNullValue()));
+    }
+
+    @Test
+    public void shouldShowCards() {
+        DashboardPage dashboardPage = openDashboard();
+        dashboardPage.ShowCards();
+    }
+
+    @Test
+    public void shouldMoneyTransferCardByCard() {
+        DashboardPage dashboardPage = openDashboard();
+        dashboardPage.MoneyTransfer(
+                new DbHelper.TransferInfo( from, to, String.valueOf(amount)));
     }
 
     @Test
@@ -39,11 +63,4 @@ public class BackendTest {
         loginPage.invalidLogin();
     }
 
-    public void shouldShowCards () {
-
-    }
-
-    public void shouldMoneyTransferCardByCard () {
-
-    }
 }

@@ -32,7 +32,7 @@ public class LoginPage {
                 .post("/api/auth") // на какой путь, относительно BaseUri отправляем запрос
                 .then()
                 .statusCode(200); // Login OK
-        return page(VerificationPage.class);
+        return new VerificationPage();
     }
 
     public void invalidLogin() {
@@ -42,7 +42,7 @@ public class LoginPage {
                     .spec(requestSpec)
                     .body(DbHelper.generateAuthInfo())
                     .when()
-                    .post("/api/auth") // на какой путь, относительно BaseUri отправляем запрос
+                    .post("/api/auth")
                     .then()
                     .statusCode(400)
                     .extract()

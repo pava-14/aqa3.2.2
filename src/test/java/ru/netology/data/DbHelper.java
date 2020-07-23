@@ -30,6 +30,13 @@ public class DbHelper {
         String code;
     }
 
+    @Value
+    public static class TransferInfo {
+        String from;
+        String to;
+        String amount;
+    }
+
     public static VerificationInfo getVerificationCode(AuthInfo authInfo) throws SQLException {
         val codeSQL = "SELECT auth_codes.code FROM users INNER JOIN auth_codes ON auth_codes.user_id "
                 + "= users.id WHERE users.login = ? ORDER by auth_codes.created DESC LIMIT 1;";
