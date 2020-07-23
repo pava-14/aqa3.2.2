@@ -27,7 +27,7 @@ public class DashboardPage {
         this.token = token;
     }
 
-    public void ShowCards() {
+    public int ShowCards() {
         ArrayList<String> cardList =
                 given()
                         .spec(requestSpec)
@@ -42,8 +42,7 @@ public class DashboardPage {
                         .statusCode(200)
                         .extract()
                         .body().jsonPath().get();
-        int expected = 2;
-        assertEquals(expected, cardList.size());
+        return cardList.size();
     }
 
     public void MoneyTransfer(DbHelper.TransferInfo info) {

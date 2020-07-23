@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BackendTest {
     private final String from = "5559 0000 0000 0002";
@@ -45,7 +46,8 @@ public class BackendTest {
     @Test
     public void shouldShowCards() {
         DashboardPage dashboardPage = openDashboard();
-        dashboardPage.ShowCards();
+        int expected = 2;
+        assertEquals(expected, dashboardPage.ShowCards());
     }
 
     @Test
