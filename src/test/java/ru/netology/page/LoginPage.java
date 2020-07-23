@@ -34,9 +34,12 @@ public class LoginPage {
     }
 
     public void invalidLogin() {
-        DbHelper.AuthInfo info = DbHelper.generateAuthInfo();
-        for (int i = 0; i < 5; i++) {
+        DbHelper.AuthInfo info = new DbHelper.AuthInfo(
+                DbHelper.getValidAuthInfo().getLogin(),
+                DbHelper.generateAuthInfo().getPassword()
+        );
 
+        for (int i = 0; i < 5; i++) {
             String code =
                     given()
                             .spec(requestSpec)
