@@ -4,11 +4,9 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import ru.netology.data.DbHelper;
 
-import static com.codeborne.selenide.Selenide.page;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -29,24 +27,26 @@ public class LoginPage {
                 .spec(requestSpec)
                 .body(info)
                 .when()
-                .post("/api/auth") // на какой путь, относительно BaseUri отправляем запрос
+                .post("/api/auth")
                 .then()
-                .statusCode(200); // Login OK
+                .statusCode(200);
         return new VerificationPage();
     }
 
     public void invalidLogin() {
+        DbHelper.AuthInfo info = DbHelper.generateAuthInfo();
         for (int i = 0; i < 5; i++) {
+
             String code =
                     given()
-                    .spec(requestSpec)
-                    .body(DbHelper.generateAuthInfo())
-                    .when()
-                    .post("/api/auth")
-                    .then()
-                    .statusCode(400)
-                    .extract()
-                    .path("code");
+                            .spec(requestSpec)
+                            .body(info)
+                            .when()
+                            .post("/api/auth")
+                            .then()
+                            .statusCode(400)
+                            .extract()
+                            .path("code");
             assertThat(code, equalTo("AUTH_INVALID"));
         }
     }

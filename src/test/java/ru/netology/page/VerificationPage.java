@@ -31,9 +31,9 @@ public class VerificationPage {
                         .spec(requestSpec)
                         .body(verificationInfo)
                         .when()
-                        .post("api/auth/verification") // на какой путь, относительно BaseUri отправляем запрос
+                        .post("api/auth/verification")
                         .then()
-                        .statusCode(200) // OK
+                        .statusCode(200)
                         .extract()
                         .path("token");
         assertThat(token, is(notNullValue()));

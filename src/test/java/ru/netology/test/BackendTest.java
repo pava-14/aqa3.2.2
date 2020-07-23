@@ -9,8 +9,6 @@ import ru.netology.page.LoginPage;
 
 import java.sql.SQLException;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -54,7 +52,7 @@ public class BackendTest {
     public void shouldMoneyTransferCardByCard() {
         DashboardPage dashboardPage = openDashboard();
         dashboardPage.MoneyTransfer(
-                new DbHelper.TransferInfo( from, to, String.valueOf(amount)));
+                new DbHelper.TransferInfo(from, to, String.valueOf(amount)));
     }
 
     @Test
@@ -62,5 +60,4 @@ public class BackendTest {
         val loginPage = new LoginPage();
         loginPage.invalidLogin();
     }
-
 }
