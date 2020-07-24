@@ -45,7 +45,7 @@ public class LoginPage {
                             .spec(requestSpec)
                             .body(info)
                             .when()
-                            .post("/api/auth")
+                            .post("/apMetoi/auth")
                             .then()
                             .statusCode(400)
                             .extract()

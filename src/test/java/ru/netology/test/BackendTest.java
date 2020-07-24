@@ -39,13 +39,13 @@ public class BackendTest {
     public void shouldShowCards() {
         DashboardPage dashboardPage = openDashboard();
         int expected = 2;
-        assertEquals(expected, dashboardPage.ShowCards());
+        assertEquals(expected, dashboardPage.showCards());
     }
 
     @Test
     public void shouldMoneyTransferCardByCard() {
         DashboardPage dashboardPage = openDashboard();
-        dashboardPage.MoneyTransfer(
+        dashboardPage.moneyTransfer(
                 new DbHelper.TransferInfo(from, to, String.valueOf(amount)));
     }
 

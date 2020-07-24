@@ -10,7 +10,6 @@ import ru.netology.data.DbHelper;
 import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DashboardPage {
     private String token;
@@ -27,7 +26,7 @@ public class DashboardPage {
         this.token = token;
     }
 
-    public int ShowCards() {
+    public int showCards() {
         ArrayList<String> cardList =
                 given()
                         .spec(requestSpec)
@@ -45,7 +44,7 @@ public class DashboardPage {
         return cardList.size();
     }
 
-    public void MoneyTransfer(DbHelper.TransferInfo info) {
+    public void moneyTransfer(DbHelper.TransferInfo info) {
         given()
                 .spec(requestSpec)
                 .header(
