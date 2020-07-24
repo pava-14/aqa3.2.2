@@ -7,8 +7,6 @@ import ru.netology.data.DbHelper;
 import ru.netology.page.DashboardPage;
 import ru.netology.page.LoginPage;
 
-import java.sql.SQLException;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -20,21 +18,15 @@ public class BackendTest {
     private final int amount = 5000;
 
     @AfterAll
-    public static void PostConditions() throws SQLException {
-        DbHelper.ClearAuthCodesTable();
+    public static void postConditions() {
+        DbHelper.clearAuthCodesTable();
     }
 
     private DashboardPage openDashboard() {
         val loginPage = new LoginPage();
         val authInfo = DbHelper.getValidAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
-        DbHelper.VerificationInfo verificationInfo = null;
-        try {
-            verificationInfo = DbHelper.getVerificationCode(authInfo);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return verificationPage.validVerify(verificationInfo);
+        return verificationPage.validVerify(DbHelper.getVerificationCode(authInfo));
     }
 
     @Test
