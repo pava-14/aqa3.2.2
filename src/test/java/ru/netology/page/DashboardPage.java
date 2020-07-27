@@ -1,5 +1,6 @@
 package ru.netology.page;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -20,7 +21,8 @@ public class DashboardPage {
             .setContentType(ContentType.JSON)
             .addFilter(new ResponseLoggingFilter())
             .log(LogDetail.ALL)
-            .build();
+            .build()
+            .filter(new AllureRestAssured());
 
     public DashboardPage(String token) {
         this.token = token;

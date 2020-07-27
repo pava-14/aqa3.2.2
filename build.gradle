@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id "io.freefair.lombok" version "5.1.0"
+
+    id "io.qameta.allure" version "2.8.1"
 }
 
 group 'ru.netology'
@@ -12,7 +14,16 @@ sourceCompatibility = 11
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
+allure {
+    autoconfigure = true
+    version = '2.13.0' // Latest Allure Version
+    useJUnit5 {
+        version = '2.13.0' // Latest Allure Version
+    }
+}
+
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -24,6 +35,9 @@ dependencies {
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'io.rest-assured:rest-assured:4.1.2'
+    // https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured
+    compile group: 'io.qameta.allure', name: 'allure-rest-assured', version: '2.13.5'
+
 }
 
 test {
@@ -31,3 +45,4 @@ test {
     // в тестах, вызывая `gradlew test -Dselenide.headless=true` будем передавать этот параметр в JVM (где его подтянет Selenide)
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
 }
+

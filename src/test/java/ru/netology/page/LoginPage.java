@@ -1,5 +1,7 @@
 package ru.netology.page;
 
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -20,7 +22,8 @@ public class LoginPage {
             .setContentType(ContentType.JSON)
             .addFilter(new ResponseLoggingFilter())
             .log(LogDetail.ALL)
-            .build();
+            .build()
+            .filter(new AllureRestAssured());
 
     public VerificationPage validLogin(DbHelper.AuthInfo info) {
         given()
@@ -45,7 +48,7 @@ public class LoginPage {
                             .spec(requestSpec)
                             .body(info)
                             .when()
-                            .post("/apMetoi/auth")
+                            .post("/api/auth")
                             .then()
                             .statusCode(400)
                             .extract()
